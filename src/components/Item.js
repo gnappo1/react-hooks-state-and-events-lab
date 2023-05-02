@@ -1,27 +1,22 @@
-import React from "react";
-import { useState } from "react"
+import React, { useState } from "react";
 
-function Item({name, category, id, setCart}) {
+function Item({ name, category }) {
   const [inCart, setInCart] = useState(false);
-  
-  const item = {name, category, id}
-  const liClass = !inCart ? "" : "in-cart"
-  const buttonText = !inCart ? "Add To Cart" : "Remove From Cart"
 
   const handleClick = (e) => {
-    if (!inCart) {
-      setCart(currentCart => [...currentCart, item])
-    } else {
-      setCart(currentCart => currentCart.filter(item => item.id !== id))
-    }
-    setInCart(currentValue => !currentValue)
+    setInCart(currentVal => !currentVal)
+    // e.target.parentNode.classList.toggle('in-cart')
   }
+  
+  const conditionalButtonLogic = inCart ? "Remove From Cart" : 'Add to Cart'
+  const conditionalLiLogic = inCart ? "in-cart" : "not-in-cart"
+  const conditionalStyleLogic = inCart ? "remove" : "add"
 
   return (
-    <li className={liClass}>
+    <li className={conditionalLiLogic}>
       <span>{name}</span>
       <span className="category">{category}</span>
-      <button className="add" onClick={handleClick}>{buttonText}</button>
+      <button onClick={handleClick} className={conditionalStyleLogic}>{conditionalButtonLogic}</button>
     </li>
   );
 }
